@@ -1,0 +1,105 @@
+{
+  "event": "fbla_visual_design",
+  "version": "2025-26",
+  "name": "Visual Design Concepts",
+  "model": "claude-sonnet-5",
+  "time_limit_ms": 300000,
+  "criteria": [
+    {
+      "id": "content_organization",
+      "name": "Content & Organization",
+      "weight": 0.3,
+      "evidence_type": "transcript",
+      "levels": [
+        { "score": 1, "descriptor": "No clear structure; ideas presented out of order with major gaps." },
+        { "score": 2, "descriptor": "Some structure present but transitions are weak or a key section is missing." },
+        { "score": 3, "descriptor": "Clear intro/body/conclusion structure; minor gaps in supporting detail." },
+        { "score": 4, "descriptor": "Tight, logical structure throughout with strong transitions and complete supporting detail." }
+      ],
+      "anchors": [
+        {
+          "score": 4,
+          "example_span": "So we've covered the problem and the market size — now let's walk through exactly how our solution addresses each of those three pain points, starting with onboarding.",
+          "rationale": "Explicit transition that names what was covered and previews what's next — signals a deliberate structure, not just topic drift."
+        },
+        {
+          "score": 2,
+          "example_span": "Um, so, yeah, and then also there's the thing about the budget, which I guess I should have mentioned earlier but it's kind of important too.",
+          "rationale": "Self-corrects mid-sentence about ordering, which signals the structure wasn't planned — a fixable gap, not a fatal one."
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "name": "Delivery",
+      "weight": 0.3,
+      "evidence_type": "audio_metric",
+      "levels": [
+        { "score": 1, "descriptor": "Monotone or erratic pacing; frequent fillers disrupt comprehension." },
+        { "score": 2, "descriptor": "Noticeable pacing or filler issues in multiple sections." },
+        { "score": 3, "descriptor": "Generally steady pacing and controlled filler use with isolated lapses." },
+        { "score": 4, "descriptor": "Confident, varied pacing with minimal fillers throughout." }
+      ],
+      "anchors": [
+        {
+          "score": 4,
+          "example_span": "197 WPM sustained through the market-sizing section with 0 filler words in a 45-second span",
+          "rationale": "WPM in a controlled range with no filler interruptions during a data-dense section indicates strong command of material."
+        },
+        {
+          "score": 1,
+          "example_span": "6 filler words ('um', 'like') in an 18-second span while explaining the revenue model",
+          "rationale": "High filler density during the section that most needs clarity — signals the material wasn't internalized."
+        }
+      ]
+    },
+    {
+      "id": "visual_design_effectiveness",
+      "name": "Visual Design Effectiveness",
+      "weight": 0.25,
+      "evidence_type": "slide",
+      "levels": [
+        { "score": 1, "descriptor": "Slides are cluttered, off-brand, or unreadable; visuals don't support the narration." },
+        { "score": 2, "descriptor": "Slides are legible but generic; limited connection to what's being said." },
+        { "score": 3, "descriptor": "Slides reinforce the narration with consistent style; occasional clutter or mismatch." },
+        { "score": 4, "descriptor": "Slides are purpose-built to reinforce each spoken point with strong visual hierarchy and consistent branding." }
+      ],
+      "anchors": [
+        {
+          "score": 4,
+          "example_span": "Slide 3 shows a single large bar chart matching the exact numbers being spoken at 1:42-1:58",
+          "rationale": "One clear visual per point, timed to the narration, is the strongest form of design-supports-content."
+        },
+        {
+          "score": 2,
+          "example_span": "Slide 5 is a generic stock photo with a title, while narration at 3:10 covers three distinct product features",
+          "rationale": "Slide doesn't carry any of the specific content being spoken — legible but not purpose-built."
+        }
+      ]
+    },
+    {
+      "id": "time_management",
+      "name": "Time Management",
+      "weight": 0.15,
+      "evidence_type": "audio_metric",
+      "levels": [
+        { "score": 1, "descriptor": "Far over or under the time limit (>20% deviation)." },
+        { "score": 2, "descriptor": "Noticeably over or under time (10-20% deviation)." },
+        { "score": 3, "descriptor": "Close to the time limit (within 10%)." },
+        { "score": 4, "descriptor": "Within the time limit with a natural, unhurried close." }
+      ],
+      "anchors": [
+        {
+          "score": 4,
+          "example_span": "Presentation duration 4:52 against a 5:00 limit, with a complete concluding statement",
+          "rationale": "Finished within limit with room for a real conclusion, not a cut-off ending."
+        },
+        {
+          "score": 1,
+          "example_span": "Presentation duration 6:40 against a 5:00 limit, cutting off mid-sentence on the final slide",
+          "rationale": "Over 30% over the limit and the ending is truncated, not a deliberate wrap-up."
+        }
+      ]
+    }
+  ]
+}

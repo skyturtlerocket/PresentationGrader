@@ -1,0 +1,105 @@
+{
+  "event": "fbla_public_speaking",
+  "version": "2025-26",
+  "name": "Public Speaking",
+  "model": "claude-sonnet-5",
+  "time_limit_ms": 300000,
+  "criteria": [
+    {
+      "id": "content_organization",
+      "name": "Content & Organization",
+      "weight": 0.35,
+      "evidence_type": "transcript",
+      "levels": [
+        { "score": 1, "descriptor": "No clear thesis or structure; ideas presented out of order." },
+        { "score": 2, "descriptor": "Thesis present but supporting points are thin or poorly ordered." },
+        { "score": 3, "descriptor": "Clear thesis with organized supporting points; minor gaps." },
+        { "score": 4, "descriptor": "Clear thesis, logically ordered support, and a conclusion that ties back to the opening." }
+      ],
+      "anchors": [
+        {
+          "score": 4,
+          "example_span": "I opened by asking you to imagine your first day at a new job — and everything I've said since then has been about designing that exact experience.",
+          "rationale": "Explicit callback to the opening hook demonstrates the speech was built around a single thesis, not a list of disconnected points."
+        },
+        {
+          "score": 2,
+          "example_span": "So that's point one. Point two is kind of related but also different, it's about costs.",
+          "rationale": "Points are enumerated but the connective logic between them is vague ('kind of related'), signaling weak organization."
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "name": "Delivery",
+      "weight": 0.35,
+      "evidence_type": "audio_metric",
+      "levels": [
+        { "score": 1, "descriptor": "Monotone, erratic pacing, or fillers that disrupt comprehension." },
+        { "score": 2, "descriptor": "Noticeable pacing/filler/volume issues in multiple sections." },
+        { "score": 3, "descriptor": "Steady pacing and volume with isolated lapses." },
+        { "score": 4, "descriptor": "Varied pacing, consistent volume, and minimal fillers throughout." }
+      ],
+      "anchors": [
+        {
+          "score": 4,
+          "example_span": "Pitch variance of 42Hz with volume consistency 0.91 across the full 4:50 runtime",
+          "rationale": "High pitch variance plus high volume consistency indicates deliberate vocal emphasis rather than monotone or erratic delivery."
+        },
+        {
+          "score": 1,
+          "example_span": "Pitch variance of 8Hz across the full runtime with 14 filler words in the closing minute",
+          "rationale": "Very low pitch variance signals monotone delivery, compounded by filler density right when the speech should be landing its close."
+        }
+      ]
+    },
+    {
+      "id": "audience_engagement",
+      "name": "Audience Engagement",
+      "weight": 0.15,
+      "evidence_type": "transcript",
+      "levels": [
+        { "score": 1, "descriptor": "No direct address to the audience; purely read from notes." },
+        { "score": 2, "descriptor": "Occasional rhetorical questions or direct address." },
+        { "score": 3, "descriptor": "Regular direct address and rhetorical devices that invite the audience in." },
+        { "score": 4, "descriptor": "Sustained, natural engagement — direct address, rhetorical questions, and callbacks woven throughout." }
+      ],
+      "anchors": [
+        {
+          "score": 4,
+          "example_span": "How many of you have felt that exact frustration? Keep that feeling in mind, because by the end of this you'll have a way to fix it.",
+          "rationale": "Direct question plus an explicit promise to the audience creates sustained engagement, not a one-off rhetorical flourish."
+        },
+        {
+          "score": 1,
+          "example_span": "The data shows that seventy-three percent of respondents indicated a preference for the second option.",
+          "rationale": "Third-person, report-style phrasing with no direct address to the listener."
+        }
+      ]
+    },
+    {
+      "id": "time_management",
+      "name": "Time Management",
+      "weight": 0.15,
+      "evidence_type": "audio_metric",
+      "levels": [
+        { "score": 1, "descriptor": "Far over or under the time limit (>20% deviation)." },
+        { "score": 2, "descriptor": "Noticeably over or under time (10-20% deviation)." },
+        { "score": 3, "descriptor": "Close to the time limit (within 10%)." },
+        { "score": 4, "descriptor": "Within the time limit with a natural, unhurried close." }
+      ],
+      "anchors": [
+        {
+          "score": 4,
+          "example_span": "Presentation duration 4:55 against a 5:00 limit, ending on a complete closing line",
+          "rationale": "Finished within limit with a deliberate, complete close rather than a rushed cutoff."
+        },
+        {
+          "score": 1,
+          "example_span": "Presentation duration 3:20 against a 5:00 limit, ending abruptly after the second point",
+          "rationale": "Well under time with no conclusion — the speech was cut short, not economically delivered."
+        }
+      ]
+    }
+  ]
+}

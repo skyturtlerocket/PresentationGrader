@@ -1,0 +1,105 @@
+{
+  "event": "fbla_sales_presentation",
+  "version": "2025-26",
+  "name": "Sales Presentation",
+  "model": "claude-opus-4-8",
+  "time_limit_ms": 420000,
+  "criteria": [
+    {
+      "id": "value_proposition",
+      "name": "Value Proposition & Persuasion",
+      "weight": 0.35,
+      "evidence_type": "transcript",
+      "levels": [
+        { "score": 1, "descriptor": "No clear value proposition; feature list with no benefit framing." },
+        { "score": 2, "descriptor": "Value proposition present but generic or unsupported by evidence." },
+        { "score": 3, "descriptor": "Clear value proposition backed by at least one concrete proof point." },
+        { "score": 4, "descriptor": "Sharp, differentiated value proposition backed by specific, credible proof points throughout." }
+      ],
+      "anchors": [
+        {
+          "score": 4,
+          "example_span": "In our pilot with three regional distributors, average order processing time dropped from 40 minutes to 6 — that's the 85% reduction this product is built to deliver.",
+          "rationale": "Specific numbers tied directly to the stated value proposition, not a generic claim."
+        },
+        {
+          "score": 2,
+          "example_span": "Our product is really efficient and will save you a lot of time and money.",
+          "rationale": "States a benefit with no supporting evidence or specificity — the kind of claim any competitor could make."
+        }
+      ]
+    },
+    {
+      "id": "objection_handling",
+      "name": "Objection Handling",
+      "weight": 0.25,
+      "evidence_type": "transcript",
+      "levels": [
+        { "score": 1, "descriptor": "Objections are ignored or dismissed without addressing the underlying concern." },
+        { "score": 2, "descriptor": "Objections acknowledged but response is vague or defensive." },
+        { "score": 3, "descriptor": "Objections addressed with a direct, relevant response." },
+        { "score": 4, "descriptor": "Objections anticipated proactively and addressed with specific evidence before being raised." }
+      ],
+      "anchors": [
+        {
+          "score": 4,
+          "example_span": "You might be thinking this sounds expensive for a small team — so let me show you the break-even calculation for a 5-person shop before you even ask.",
+          "rationale": "Names the likely objection unprompted and answers it with a concrete calculation — proactive, not reactive."
+        },
+        {
+          "score": 1,
+          "example_span": "Right, but anyway, moving on to the next feature...",
+          "rationale": "Deflects rather than engaging with the concern raised."
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "name": "Delivery",
+      "weight": 0.25,
+      "evidence_type": "audio_metric",
+      "levels": [
+        { "score": 1, "descriptor": "Monotone or erratic pacing; frequent fillers disrupt comprehension." },
+        { "score": 2, "descriptor": "Noticeable pacing or filler issues in multiple sections." },
+        { "score": 3, "descriptor": "Generally steady pacing and controlled filler use with isolated lapses." },
+        { "score": 4, "descriptor": "Confident, varied pacing with minimal fillers throughout." }
+      ],
+      "anchors": [
+        {
+          "score": 4,
+          "example_span": "182 WPM sustained through the pricing objection response with 0 filler words",
+          "rationale": "Controlled pacing during the highest-pressure moment of a sales pitch (pricing pushback) signals genuine command, not memorized script."
+        },
+        {
+          "score": 1,
+          "example_span": "5 filler words in a 12-second span immediately after the prospect's objection about cost",
+          "rationale": "Filler spike right after the toughest question suggests the response wasn't rehearsed or internalized."
+        }
+      ]
+    },
+    {
+      "id": "time_management",
+      "name": "Time Management",
+      "weight": 0.15,
+      "evidence_type": "audio_metric",
+      "levels": [
+        { "score": 1, "descriptor": "Far over or under the time limit (>20% deviation)." },
+        { "score": 2, "descriptor": "Noticeably over or under time (10-20% deviation)." },
+        { "score": 3, "descriptor": "Close to the time limit (within 10%)." },
+        { "score": 4, "descriptor": "Within the time limit with a natural, unhurried close." }
+      ],
+      "anchors": [
+        {
+          "score": 4,
+          "example_span": "Presentation duration 6:50 against a 7:00 limit, closing with a clear call to action",
+          "rationale": "Within limit with a complete, deliberate close (a call to action) rather than a rushed ending."
+        },
+        {
+          "score": 1,
+          "example_span": "Presentation duration 9:15 against a 7:00 limit, still covering pricing when cut off",
+          "rationale": "Over 30% over the limit and cut off mid-topic — a real time-management failure, not a close call."
+        }
+      ]
+    }
+  ]
+}
